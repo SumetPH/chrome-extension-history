@@ -1,0 +1,16 @@
+{
+  "name": "History",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Extension for history",
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["assets/js/jquery.min.js"]
+    }
+  ],
+  "permissions": ["activeTab", "history"]
+}
