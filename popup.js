@@ -1,9 +1,11 @@
 chrome.tabs.getSelected(null, tab => {
-  let tablink = tab.url.split("/");
-  chrome.history.search({ text: tablink[2], maxResults: 50 }, data => {
-    $("#loading").hide();
-    data.forEach(page => {
-      const el = `
+  let tablink = tab.url.split('/');
+  chrome.history.search(
+    {text: tablink[2], startTime: 0, maxResults: 50},
+    data => {
+      $('#loading').hide();
+      data.forEach(page => {
+        const el = `
         <div class="m-2">
           <a class="btn btn-outline-info btn-sm btn-block animated fadeIn" target="_blank" href="${
             page.url
@@ -12,7 +14,8 @@ chrome.tabs.getSelected(null, tab => {
           </a>
         </div>
       `;
-      $("#history").append(el);
-    });
-  });
+        $('#history').append(el);
+      });
+    },
+  );
 });
