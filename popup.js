@@ -1,21 +1,26 @@
-chrome.tabs.getSelected(null, tab => {
-  let tablink = tab.url.split('/');
+chrome.tabs.getSelected(null, (tab) => {
+  let tablink = tab.url.split("/");
+  let text = tablink[4].split("-");
+
   chrome.history.search(
-    {text: tablink[2], startTime: 0, maxResults: 50},
-    data => {
-      $('#loading').hide();
-      data.forEach(page => {
+    { text: text[0], startTime: 0, maxResults: 50 },
+    (data) => {
+      // hidden loading
+      $("#loading").hide();
+
+      // create history list
+      data.forEach((page) => {
         const el = `
         <div class="m-2">
-          <a class="btn btn-outline-info btn-sm btn-block animated fadeIn" target="_blank" href="${
-            page.url
-          }">
+          <a class="btn btn-outline-info btn-sm btn-block animated fadeIn" target="_blank" href="${page.url}">
             <div class="ellipsis">${page.title}</div>
           </a>
         </div>
       `;
-        $('#history').append(el);
+
+        // append history to show
+        $("#history").append(el);
       });
-    },
+    }
   );
 });
